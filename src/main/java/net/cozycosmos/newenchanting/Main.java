@@ -1,5 +1,6 @@
 package net.cozycosmos.newenchanting;
 
+import net.cozycosmos.newenchanting.commands.Core;
 import net.cozycosmos.newenchanting.compat.ItemsAdderCompat;
 import net.cozycosmos.newenchanting.events.AnvilInvInteract;
 import net.cozycosmos.newenchanting.events.EnchantingInvInteract;
@@ -68,7 +69,7 @@ public final class Main extends JavaPlugin {
     }
 
     private void registerCommands() {
-
+        getCommand("nouveauenchanting").setExecutor(new Core());
     }
 
     private void registerEvents() {

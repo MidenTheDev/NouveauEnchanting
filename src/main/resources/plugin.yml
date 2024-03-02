@@ -5,3 +5,13 @@ authors: [Miden]
 softdepend: [ItemsAdder]
 api-version: 1.14
 description: A new, customizable enchanting system for your server!
+
+commands:
+  nouveauenchanting:
+    usage: /ne
+    aliases: [ne]
+
+permissions:
+  nouveauenchanting.command.enchant:
+    default: op
+    description: Grants permission to use /ne enchant
