@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +45,13 @@ public class EnchantManager {
         ItemMeta meta = item.getItemMeta();
         meta.addEnchant(enchant, level,bypassLevelLimit);
         if (enchant instanceof EnchantBuilder) {
-            List<String> lore = meta.getLore();
+            List<String> lore;
+            if (meta.getLore() == null) {
+                lore = new ArrayList<>();
+            } else {
+                lore = meta.getLore();
+            }
+
 
             lore.add(ChatColor.GRAY + enchant.getName() + " " + numberToRomanNumeral(level));
 
