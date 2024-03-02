@@ -14,12 +14,34 @@ public class EnchantBuilder extends Enchantment {
     private final int maxLevel;
 
     private EnchantmentTarget target = null;
-    private List<Enchantment> conflicts;
+    private List<Enchantment> conflicts = new ArrayList<>();
 
     public EnchantBuilder(String Key, String Name, int MaxLevel) {
         super(NamespacedKey.minecraft(Key));
         name = Name;
         maxLevel = MaxLevel;
+
+    }
+    public EnchantBuilder(String Key, String Name, int MaxLevel, EnchantmentTarget enchantmentTarget) {
+        super(NamespacedKey.minecraft(Key));
+        name = Name;
+        maxLevel = MaxLevel;
+        target = enchantmentTarget;
+
+    }
+    public EnchantBuilder(String Key, String Name, int MaxLevel, EnchantmentTarget enchantmentTarget, List<Enchantment> Conflicts) {
+        super(NamespacedKey.minecraft(Key));
+        name = Name;
+        maxLevel = MaxLevel;
+        target = enchantmentTarget;
+        conflicts = Conflicts;
+
+    }
+    public EnchantBuilder(String Key, String Name, int MaxLevel, List<Enchantment> Conflicts) {
+        super(NamespacedKey.minecraft(Key));
+        name = Name;
+        maxLevel = MaxLevel;
+        conflicts = Conflicts;
 
     }
 
@@ -55,30 +77,15 @@ public class EnchantBuilder extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment enchantment) {
-        if (conflicts.contains(enchantment)) {
-            return true;
-        } else {
-            return false;
-        }
+        return conflicts.contains(enchantment);
     }
 
     @Override
     public boolean canEnchantItem(ItemStack itemStack) {
-        if (getItemTarget().includes(itemStack)) {
-            return true;
-        } else {
-            return false;
-        }
+        return getItemTarget().includes(itemStack);
     }
 
-    public void setEnchantmentTarget(EnchantmentTarget eTarget) {
-        target = eTarget;
-    }
 
-    public void addEnchantmentConflict(Enchantment ench) {
-        if (conflicts.isEmpty()) {
-            conflicts = new ArrayList<>();
-        }
-        conflicts.add(ench);
-    }
+
+
 }
