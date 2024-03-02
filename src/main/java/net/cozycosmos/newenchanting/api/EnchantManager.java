@@ -44,6 +44,7 @@ public class EnchantManager {
     public void applyEnchant(ItemStack item, Enchantment enchant, int level, boolean bypassLevelLimit) {
         ItemMeta meta = item.getItemMeta();
         meta.addEnchant(enchant, level,bypassLevelLimit);
+        boolean replaced = false;
         if (enchant instanceof EnchantBuilder) {
             List<String> lore;
             if (meta.getLore() == null) {
@@ -51,9 +52,18 @@ public class EnchantManager {
             } else {
                 lore = meta.getLore();
             }
+            if (lore.size() > 0) {
+                for (int i = 0;i < lore.size();i++) {
+                    if (lore.get(i).contains(enchant.getName())) {
+                        lore.set(i,ChatColor.GRAY + enchant.getName() + " " + numberToRomanNumeral(level));
+                        replaced = true;
+                    }
+                }
+            }
 
-
-            lore.add(ChatColor.GRAY + enchant.getName() + " " + numberToRomanNumeral(level));
+            if (!replaced) {
+                lore.add(0,ChatColor.GRAY + enchant.getName() + " " + numberToRomanNumeral(level));
+            }
 
             meta.setLore(lore);
             item.setItemMeta(meta);

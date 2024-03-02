@@ -5,15 +5,22 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnchantBuilder extends Enchantment {
 
     private final String name;
     private final int maxLevel;
 
+    private EnchantmentTarget target = null;
+    private List<Enchantment> conflicts;
+
     public EnchantBuilder(String Key, String Name, int MaxLevel) {
         super(NamespacedKey.minecraft(Key));
         name = Name;
         maxLevel = MaxLevel;
+
     }
 
     @Override
@@ -33,7 +40,7 @@ public class EnchantBuilder extends Enchantment {
 
     @Override
     public EnchantmentTarget getItemTarget() {
-        return null;
+        return target;
     }
 
     @Override
@@ -48,11 +55,30 @@ public class EnchantBuilder extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment enchantment) {
-        return false;
+        if (conflicts.contains(enchantment)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean canEnchantItem(ItemStack itemStack) {
-        return false;
+        if (getItemTarget().includes(itemStack)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setEnchantmentTarget(EnchantmentTarget eTarget) {
+        target = eTarget;
+    }
+
+    public void addEnchantmentConflict(Enchantment ench) {
+        if (conflicts.isEmpty()) {
+            conflicts = new ArrayList<>();
+        }
+        conflicts.add(ench);
     }
 }
