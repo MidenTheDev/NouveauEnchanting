@@ -2,6 +2,7 @@ package net.cozycosmos.newenchanting.enchants;
 
 import net.cozycosmos.newenchanting.Main;
 import net.cozycosmos.newenchanting.compat.ItemsAdderCompat;
+import net.cozycosmos.newenchanting.compat.OraxenCompat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -58,14 +59,25 @@ public class EnchantHandler {
                 infoItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Cost: " + enchCost + " levels");
                 List<String> lore = infoItemMeta.getLore();
                 String materialName;
-                if (plugin.itemsadderLoaded) {
-                    ItemsAdderCompat iacomp = new ItemsAdderCompat();
-                    if (iacomp.isCustomItem(materialComp)) {
-                        materialName = materialComp.getItemMeta().getDisplayName();
-                    }else {
-                        materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                if (plugin.itemsadderLoaded || plugin.oraxenLoaded) {
+                    if (plugin.itemsadderLoaded && !plugin.oraxenLoaded) {
+                        ItemsAdderCompat iacomp = new ItemsAdderCompat();
+                        if (iacomp.isCustomItem(materialComp)) {
+                            materialName = materialComp.getItemMeta().getDisplayName();
+                        }else {
+                            materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                        }
+                    } else {
+                        OraxenCompat oComp = new OraxenCompat();
+                        if (oComp.isCustomItem(materialComp)) {
+                            materialName = materialComp.getItemMeta().getDisplayName();
+                        }else {
+                            materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                        }
                     }
-                } else {
+
+                }
+                else {
                     materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
                 }
 
@@ -89,14 +101,25 @@ public class EnchantHandler {
                 infoItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Cost: " + enchCost + " levels");
                 List<String> lore = infoItemMeta.getLore();
                 String materialName;
-                if (plugin.itemsadderLoaded) {
-                    ItemsAdderCompat iacomp = new ItemsAdderCompat();
-                    if (iacomp.isCustomItem(materialComp)) {
-                        materialName = materialComp.getItemMeta().getDisplayName();
-                    }else {
-                        materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                if (plugin.itemsadderLoaded || plugin.oraxenLoaded) {
+                    if (plugin.itemsadderLoaded && !plugin.oraxenLoaded) {
+                        ItemsAdderCompat iacomp = new ItemsAdderCompat();
+                        if (iacomp.isCustomItem(materialComp)) {
+                            materialName = materialComp.getItemMeta().getDisplayName();
+                        }else {
+                            materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                        }
+                    } else {
+                        OraxenCompat oComp = new OraxenCompat();
+                        if (oComp.isCustomItem(materialComp)) {
+                            materialName = materialComp.getItemMeta().getDisplayName();
+                        }else {
+                            materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
+                        }
                     }
-                } else {
+
+                }
+                else {
                     materialName = materialComp.getType().toString().toLowerCase().replace(materialComp.getType().toString().toLowerCase().charAt(0), Character.toUpperCase(materialComp.getType().toString().toLowerCase().charAt(0))).replace('_',' ');
                 }
 
@@ -154,15 +177,27 @@ public class EnchantHandler {
                 isValid = false;
             }
 
-            if (plugin.itemsadderLoaded) {
-                ItemsAdderCompat iacomp = new ItemsAdderCompat();
-                if (iacomp.isCustomItem(tool)) {
-                    if (enchantItemDataYml.getStringList(ench).contains(iacomp.getID(tool))) {
-                        isValid = true;
-                    } else {
-                        isValid = false;
+            if (plugin.itemsadderLoaded || plugin.oraxenLoaded) {
+                if (plugin.itemsadderLoaded && !plugin.oraxenLoaded) {
+                    ItemsAdderCompat iacomp = new ItemsAdderCompat();
+                    if (iacomp.isCustomItem(tool)) {
+                        if (enchantItemDataYml.getStringList(ench).contains(iacomp.getID(tool))) {
+                            isValid = true;
+                        } else {
+                            isValid = false;
+                        }
+                    }
+                } else {
+                    OraxenCompat oComp = new OraxenCompat();
+                    if (oComp.isCustomItem(tool)) {
+                        if (enchantItemDataYml.getStringList(ench).contains(oComp.getID(tool))) {
+                            isValid = true;
+                        } else {
+                            isValid = false;
+                        }
                     }
                 }
+
             }
         } else {
                 isValid = false;
@@ -184,16 +219,29 @@ public class EnchantHandler {
         }
 
         //ItemsAdder Compatibility
-        if (plugin.itemsadderLoaded) {
-            ItemsAdderCompat iacomp = new ItemsAdderCompat();
-            if (iacomp.isCustomItem(materialComp)) {
-                if (materialDataYml.get(iacomp.getID(materialComp).replace(":","-")) instanceof String) {
-                    validEnchants.add(materialDataYml.getString(iacomp.getID(materialComp).replace(":","-")));
-                } else if (materialDataYml.get(iacomp.getID(materialComp).replace(":","-")) instanceof List) {
-                    validEnchants.addAll(materialDataYml.getStringList(iacomp.getID(materialComp).replace(":","-")));
-                } else {
+        if (plugin.itemsadderLoaded || plugin.oraxenLoaded) {
+            if (plugin.itemsadderLoaded && !plugin.oraxenLoaded) {
+                ItemsAdderCompat iacomp = new ItemsAdderCompat();
+                if (iacomp.isCustomItem(materialComp)) {
+                    if (materialDataYml.get(iacomp.getID(materialComp).replace(":","-")) instanceof String) {
+                        validEnchants.add(materialDataYml.getString(iacomp.getID(materialComp).replace(":","-")));
+                    } else if (materialDataYml.get(iacomp.getID(materialComp).replace(":","-")) instanceof List) {
+                        validEnchants.addAll(materialDataYml.getStringList(iacomp.getID(materialComp).replace(":","-")));
+                    } else {
+                    }
+                }
+            } else {
+                OraxenCompat oComp = new OraxenCompat();
+                if (oComp.isCustomItem(materialComp)) {
+                    if (materialDataYml.get(oComp.getID(materialComp).replace(":","-")) instanceof String) {
+                        validEnchants.add(materialDataYml.getString(oComp.getID(materialComp).replace(":","-")));
+                    } else if (materialDataYml.get(oComp.getID(materialComp).replace(":","-")) instanceof List) {
+                        validEnchants.addAll(materialDataYml.getStringList(oComp.getID(materialComp).replace(":","-")));
+                    } else {
+                    }
                 }
             }
+
         }
 
             if (validEnchants.size()>1) {

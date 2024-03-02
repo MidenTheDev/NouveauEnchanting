@@ -1,7 +1,6 @@
 package net.cozycosmos.newenchanting;
 
 import net.cozycosmos.newenchanting.commands.Core;
-import net.cozycosmos.newenchanting.compat.ItemsAdderCompat;
 import net.cozycosmos.newenchanting.events.AnvilInvInteract;
 import net.cozycosmos.newenchanting.events.EnchantingInvInteract;
 import net.cozycosmos.newenchanting.events.InvClose;
@@ -36,6 +35,7 @@ public final class Main extends JavaPlugin {
     FileConfiguration shortcutsYml;
 
     public boolean itemsadderLoaded = false;
+    public boolean oraxenLoaded = false;
 
     @Override
     public void onEnable() {
@@ -65,6 +65,13 @@ public final class Main extends JavaPlugin {
         if (pm.getPlugin("ItemsAdder") != null && pm.getPlugin("ItemsAdder").isEnabled()) {
             cs.sendMessage(ChatColor.DARK_PURPLE+"[Nouveau Enchanting]: "+ChatColor.GREEN+ "Enabling ItemsAdder Compatibility");
             itemsadderLoaded = true;
+        }
+        if (pm.getPlugin("Oraxen") != null && pm.getPlugin("Oraxen").isEnabled()) {
+            cs.sendMessage(ChatColor.DARK_PURPLE+"[Nouveau Enchanting]: "+ChatColor.GREEN+ "Enabling Oraxen Compatibility");
+            itemsadderLoaded = true;
+        }
+        if (oraxenLoaded && itemsadderLoaded) {
+            cs.sendMessage(ChatColor.DARK_PURPLE+"[Nouveau Enchanting]: "+ChatColor.GREEN+ "Using two custom item plugins may cause issues! Please only use one for enchanting components if possible.");
         }
     }
 
