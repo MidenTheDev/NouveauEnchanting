@@ -1,0 +1,7 @@
+name: NouveauEnchanting
+version: '${project.version}'
+main: net.cozycosmos.newenchanting.Main
+authors: [Miden]
+softdepend: [ItemsAdder]
+api-version: 1.14
+description: A new, customizable enchanting system for your server!

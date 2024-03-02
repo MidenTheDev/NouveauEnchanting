@@ -1,0 +1,83 @@
+DAMAGE_ALL:
+  enabled: true
+  material: 'DIAMOND'
+  allowed-items:
+    - SWORDS
+    - AXES
+  #    - TRIDENT
+  1:
+    exp-cost: 5
+    material-cost: 3
+  2:
+    exp-cost: 5
+    material-cost: 5
+  3:
+    exp-cost: 8
+    material-cost: 5
+  4:
+    exp-cost: 8
+    material-cost: 8
+  5:
+    exp-cost: 10
+    material-cost: 8
+#  6:
+#    exp: 15
+#    material-cost: 12
+ARROW_DAMAGE:
+  enabled: true
+  material: 'DIAMOND'
+  allowed-items:
+    - BOWS
+#    - BOW
+#    - CROSSBOW
+  1:
+    exp-cost: 5
+    material-cost: 3
+  2:
+    exp-cost: 5
+    material-cost: 5
+  3:
+    exp-cost: 8
+    material-cost: 5
+  4:
+    exp-cost: 8
+    material-cost: 8
+  5:
+    exp-cost: 10
+    material-cost: 8
+
+FIRE_ASPECT:
+  enabled: true
+  material: 'FIRE_CHARGE'
+  allowed-items:
+    - SWORDS
+    - AXES
+  1:
+    exp-cost: 8
+    material-cost: 12
+  2:
+    exp-cost: 8
+    material-cost: 12
+
+DAMAGE_UNDEAD:
+  enabled: true
+  material: 'ROTTEN_FLESH'
+  allowed-items:
+    - SWORDS
+    - AXES
+  #    - TRIDENT
+  1:
+    exp-cost: 5
+    material-cost: 12
+  2:
+    exp-cost: 5
+    material-cost: 20
+  3:
+    exp-cost: 8
+    material-cost: 32
+  4:
+    exp-cost: 8
+    material-cost: 40
+  5:
+    exp-cost: 10
+    material-cost: 48

@@ -1,0 +1,8 @@
+override-vanilla-table: true
+# When set to true, right-clicking on an enchanting table will open the new gui
+unique-cost-per-level: true
+# If set to false, every level of an enchantment has the same cost rather than a unique cost per level
+using-resource-pack: true
+# Set to true if using the custom resource pack for the enchanting table
+block-enchanted-books: true
+# Set to true if you want to stop people from using enchanted books in an anvil
